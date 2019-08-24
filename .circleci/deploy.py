@@ -21,11 +21,9 @@ env.user = 'root'
 def deploy():
     with cd(env.path1):
         run('git pull')
-        run('source venv/bin/activate')
-        run('pip install -r requirements.txt')
+        run('source venv/bin/activate && pip install -r requirements.txt')
         run('python3 manage.py migrate --noinput')
         run('python3 manage.py collectstatic --noinput')
         run("sudo systemctl restart gunicorn")
-        run("deactivate")
     with cd(env.path2):
         run('yarn install')
