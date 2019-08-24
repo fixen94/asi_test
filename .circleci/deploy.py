@@ -26,5 +26,6 @@ def deploy():
         run('python3 manage.py migrate --noinput')
         run('python3 manage.py collectstatic --noinput')
         run("sudo systemctl restart gunicorn")
+        run("deactivate")
     with cd(env.path2):
         run('yarn install')
