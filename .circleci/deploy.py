@@ -11,16 +11,20 @@ This is a Fabric (python 3) deployment script to be used by CircleCI to
 deploy this project automatically to either production or staging.
 """
 
-env.path = 'asi_test'
-env.user = 'admin123'
+env.path1 = '../home/admin123/asi_test/'
+env.path2 = '../home/admin123/asi_test/frontend'
+
+env.user = 'root'
 
 
 @task
 def deploy():
-    with cd(env.path):
+    with cd(env.path1):
         run('git pull')
         run('source venv/bin/activate')
-        run('pip3 install -r requirements.txt')
+        run('pip install -r requirements.txt')
         run('python3 manage.py migrate --noinput')
         run('python3 manage.py collectstatic --noinput')
-        run("echo 'admin123' | sudo -S systemctl restart gunicorn")
+        run("sudo systemctl restart gunicorn")
+    with cd(env.path2):
+        run('yarn install')
