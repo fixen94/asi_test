@@ -49,7 +49,6 @@ jobs:
           command: |
             sudo pip install fabric3
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              fab -f .circleci/deploy.py -H root@194.87.237.247 -p yoaAXkl9vH deploy
             fi
 workflows:
   version: 2
